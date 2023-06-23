@@ -18,6 +18,9 @@ import { CheckCircleIcon } from '@heroicons/vue/24/solid'
       </div>
     </a>
   </header>
+
+  <main>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores explicabo dolor pariatur repudiandae minima suscip.</main>
+  <nav class="sticky bottom-0 z-10 bg-white text-3xl">nav</nav>
 </template>
 
 <style scoped>
