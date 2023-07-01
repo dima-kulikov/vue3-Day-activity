@@ -4,28 +4,25 @@ import TheNav from './components/TheNav.vue';
 import TheActivities from './pages/TheActivities.vue'; 
 import TheProgress from './pages/TheProgress.vue';
 import TheTimeline from './pages/TheTimeline.vue'
+import {normalizePageHash} from './functions.js'
+import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants'
 
-import {PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS} from '@/constants.js'
 import {ref} from "vue"
 
 
 const currentPage = ref(normalizePageHash())
 
-function normalizePageHash() {
-  const hash = window.location.hash.slice(1);
 
-  if([PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS].includes(hash)){
-    return hash;
-  }
-  window.location.hash = PAGE_TIMELINE
-
-  return PAGE_TIMELINE
-
+function goTo(page){
+  currentPage.value = page
 }
 </script>
 
 <template>
-  <TheHeader/>
+  <TheHeader 
+  @go-to-time-line="goTo(PAGE_TIMELINE)"
+  @go-to-progress="goTo(PAGE_PROGRESS)"
+  />
 
   <main class="flex flex-grow flex-col">
     <TheTimeline v-show="currentPage == PAGE_TIMELINE"/>
@@ -33,7 +30,7 @@ function normalizePageHash() {
     <TheActivities v-show="currentPage == PAGE_ACTIVITIES"/>
   </main>
 
-  <TheNav :current-page="currentPage" @navigate="currentPage = $event"/>
+  <TheNav :current-page="currentPage" @navigate="goTo($event)"/>
 </template>
 
 <style scoped>
@@ -64,3 +61,6 @@ header {
   }
 }
 </style>
+<!-- https://www.youtube.com/watch?v=GRAAjpeZKWE&list=PL-FhWbGlJPfaCm9Qx7G9wQqtt2_yBT92V&index=13
+ПАУЗА НА 13 ВИДЕО, ИХ МНОГО, БОЛЬШОЙ ПРОЕКТ
+-->
